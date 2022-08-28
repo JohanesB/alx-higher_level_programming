@@ -10,6 +10,7 @@
 - Your code should use the pycodestyle (version 2.8.*)
 - All your files must be executable
 - The length of your files will be tested using wc
+
 ### C
 
 - Allowed editors: vi, vim, emacs
@@ -22,5 +23,3 @@
 - The prototypes of all your functions should be included in your header file called lists.h
 - Don’t forget to push your header file
 - All your header files should be include guarded
-## Tasks
-
