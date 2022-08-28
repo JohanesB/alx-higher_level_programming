@@ -23,4 +23,4 @@
 - Don’t forget to push your header file
 - All your header files should be include guarded
 ## Tasks
-[0. Print a list of integers] (https://github.com/JohanesB/alx-higher_level_programming/tree/master/0x03-python-data_structures/0-print_list_integer.py)
+[0-print_list_integer.py](https://github.com/JohanesB/alx-higher_level_programming)
