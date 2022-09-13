@@ -1,10 +1,7 @@
 #!/usr/bin/python3
-"""Square Class
-
-This class don't do anything for the moment
-
-"""
+"""Square Class"""
 
 
 class Square:
+    """A class that does nothing"""
     pass
