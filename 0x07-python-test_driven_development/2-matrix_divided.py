@@ -1,27 +1,39 @@
 #!/usr/bin/python3
-""" Divide a matrix by a given number """
+"""
+This module defines `matrix_divided`
+The function returns the matrix divided by div
+"""
 
 
 def matrix_divided(matrix, div):
-    if not isinstance(matrix, list):
-        raise TypeError("Must be a matrix")
-    elif 
-        raise TypeError("Each row of the matrix must have the same size div")
-    elif not all(type(val) is int or type(val) is float for val in matrix[0]):
-        raise TypeError("matrix must be a matrix (list of lists) of \
-integers/floats")
-    elif not all(type(val) != int or type(val) != float for val in matrix[1]):
-        raise TypeError("matrix must be a matrix (list of lists) of \
-integers/floats")
-    elif div == 0:
-        raise ZeroDivisionError("division by zero")
-    elif type(div) is not int and type(div) is not float:
-        raise TypeError("div must be a number")
+    """divide each element of a matrix by div
+    Args:
+        matrix (list): matrix to divide
+        div (int): divisor
+    Raises:
+        TypeError: div must be a number
+        TypeError: Each row of the matrix must have the same size
+        TypeError: matrix must be a matrix (list of lists) of integers/floats
+        ZeroDivisionError
+    Returns:
+        list: matrix divided by div
+    """
 
-    copy = [row[:] for row in matrix]
-    count = 0
-    for li in matrix:
-        for idx in range(len(li)):
-            copy[count][idx] = float(round(copy[count][idx] / div, 2))
-        count += 1
-    return copy
+    if not isinstance(div, (int, float)):
+        raise TypeError('div must be a number')
+
+    matrix_divided = [x[:] for x in matrix]
+    for line in matrix_divided:
+        if len(line) != len(matrix_divided[0]):
+            raise TypeError('Each row of the matrix must have the same size')
+
+        for element_index, element in enumerate(line):
+            if not isinstance(element, (int, float)):
+                raise TypeError(
+                    'matrix must be a matrix (list of lists)'
+                    ' of integers/floats'
+                )
+
+            line[element_index] = round(element/div, 2)
+
+    return matrix_divided
