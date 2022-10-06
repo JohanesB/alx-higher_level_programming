@@ -1,114 +1,123 @@
 #!/usr/bin/python3
-""" Class: Rectangle """
+"""
+This module implements a Rectangle object
+"""
 from models.base import Base
 
 
 class Rectangle(Base):
-    """ Instantiate width, height, x=0, y=0, id=None with getters/setters """
+    """Rectangle implementation
+    """
 
-    def __init__(self, width, height, x=0, y=0, id=None):
-        """ instantiate Rectangle object """
-        super().integer_validator("width", width, False)
-        self.width = width
-        super().integer_validator("height", height, False)
-        self.height = height
-        super().integer_validator("x", x, True)
-        self.x = x
-        super().integer_validator("y", y, True)
-        self.y = y
+    def __init__(self, width: int, height: int, x=0, y=0, id=None):
+        """initialization
+        """
         super().__init__(id)
 
-    def __str__(self):
-        """ return id, x/y, width/height """
-        return "[Rectangle] ({}) {:d}/{:d} - {:d}/{:d}".format(
-            self.id, self.x, self.y, self.width, self.height)
+        self.width = width
+        self.height = height
+        self.x = x
+        self.y = y
+
+    def __str__(self) -> str:
+        """string representation
+        """
+        return "[Rectangle] ({}) {}/{} - {}/{}" \
+            .format(self.id, self.x, self.y, self.width, self.height)
+
+    def check_type_value(self, name:  str, value: object, greater_equal=False):
+        """type and value validation
+        """
+
+        if not isinstance(value, int):
+            raise TypeError("{} must be an integer".format(name))
+        if not greater_equal:
+            if value <= 0:
+                raise ValueError("{} must be > 0".format(name))
+        else:
+            if value < 0:
+                raise ValueError("{} must be >= 0".format(name))
 
     @property
-    def width(self):
-        """ Property decorator: getter """
+    def width(self) -> int:
+        """width getter
+        """
         return self.__width
 
     @width.setter
-    def width(self, value):
-        """ Property decorator: setter """
-        super().integer_validator("width", value, False)
-        self.__width = value
+    def width(self, width: int):
+        """width setter
+        """
+        self.check_type_value('width', width)
+        self.__width = width
 
     @property
-    def height(self):
-        """ Property decorator: getter """
+    def height(self) -> int:
+        """height getter
+        """
         return self.__height
 
     @height.setter
-    def height(self, value):
-        """ Property decorator: setter """
-        super().integer_validator("height", value, False)
-        self.__height = value
+    def height(self, height: int):
+        """height setter
+        """
+        self.check_type_value('height', height)
+        self.__height = height
 
     @property
-    def x(self):
-        """ Property decorator: getter """
+    def x(self) -> int:
+        """x getter
+        """
         return self.__x
 
     @x.setter
-    def x(self, value):
-        """ Property decorator: setter """
-        super().integer_validator("x", value, True)
-        self.__x = value
+    def x(self, x: int):
+        """x setter
+        """
+        self.check_type_value('x', x, True)
+        self.__x = x
 
     @property
-    def y(self):
-        """ Property decorator: getter """
+    def y(self) -> int:
+        """y getter
+        """
         return self.__y
 
     @y.setter
-    def y(self, value):
-        """ Property decorator: setter """
-        super().integer_validator("y", value, True)
-        self.__y = value
+    def y(self, y: int):
+        """y setter
+        """
+        self.check_type_value('y', y, True)
+        self.__y = y
 
-    def area(self):
-        """ Return the area of the rectangle """
+    def area(self) -> int:
+        """area
+        """
         return self.width * self.height
 
     def display(self):
-        """ print the display of the rectangle to the stdout """
-        print("\n" * self.y, end="")
-        for row in range(self.height):
-            print(' ' * self.x, end="")
-            print('#' * self.width)
+        """prints # shape of the rectangle
+        """
+        print('\n'*self.y, end='')
+        for l in range(self.height):
+            print(' '*self.x + '#'*self.width)
 
     def update(self, *args, **kwargs):
-        """ updates the attributes of the rectangle """
-        fields = ['id', '_Rectangle__width', '_Rectangle__height',
-                  '_Rectangle__x', '_Rectangle__y']
-        dic_fields = {
-                      'id': 'id', 'width': "_Rectangle__width",
-                      "height": '_Rectangle__height', "x": '_Rectangle__x',
-                      'y': '_Rectangle__y'
-                      }
-        if args:
-            for field, arg in zip(fields, args):
-                eq = False
-                if field == "x" or field == "y":
-                    eq = True
-                super().integer_validator(field, arg, eq)
-                self.__dict__[field] = arg
-        else:
-            for key, value in kwargs.items():
-                eq = False
-                if key == "x" or key == "y":
-                    eq = True
-                super().integer_validator(key, value, eq)
-                self.__dict__[dic_fields[key]] = value
+        """update rectangle attributes
+        """
 
-    def to_dictionary(self):
-        """ Returns a dictionary representation of the object """
-        ret_dict = {}
-        ret_dict['id'] = self.id
-        ret_dict['x'] = self.x
-        ret_dict['y'] = self.y
-        ret_dict['width'] = self.width
-        ret_dict['height'] = self.height
+        expect = (self.id, self.width, self.height, self.x, self.y)
+        if args != ():
+            self.id, self.width, self.height, self.x, self.y = \
+                args + expect[len(args):len(expect)]
+        elif kwargs:
+            for (name, value) in kwargs.items():
+                setattr(self, name, value)
 
-        return ret_dict
+    def to_dictionary(self) -> int:
+        """rectangle to dictionary
+        """
+
+        return {
+            'x': self.x, 'y': self.y, 'id': self.id,
+            'height': self.height, 'width': self.width}
