@@ -11,3 +11,4 @@
 - All your files must be executable
 - The length of your files will be tested using wc
 
+[![js-semistandard-style](https://raw.githubusercontent.com/standard/semistandard/master/badge.svg)](https://github.com/standard/semistandard)
