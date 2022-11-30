@@ -1,5 +1,5 @@
 #!/usr/bin/node
-const langs = ['C is fun', 'Python is cool', 'Javascript is amazing'];
+const str = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
 for (let x = 0; x < 3; x++) {
-  console.log(langs[x]);
+  console.log(str[x]);
 }
